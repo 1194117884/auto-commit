@@ -5,19 +5,36 @@
 #
 # 'You have to login your git account already, for security!'
 #
-GIT_REPOSITORY=https://github.com/1194117884/auto-commit.git
-
-# temp
 TEMP_FOLDER=/tmp/git-repository-temp
-TEMP_FILE=temp.log
-	
+ROLLING_FILE=temp.log
 
-# git
+# git check
 if [ `command -v git | wc -l` = 0 ];
 then
-  echo 'command "git" not found!';
-  exit 1; #todo: change this exit to auto install 'git'
+  echo 'command "git" not found! try to install';
+
+  #centos
+  if [ `command -v yum | wc -l` = 1 ];
+  then
+  	yum -y install git
+  fi
+
+  #ubuntu
+  if [ `command -v apt-get | wc -l` = 1 ];
+  then
+  	apt-get -y install git
+  fi
+
+  #macos
+  if [ `command -v brew | wc -l` = 1 ];
+  then
+  	brew install -f git
+  fi
+
 fi
+
+# this command only working in you git repository
+GIT_REPOSITORY=`git remote get-url --all origin`
 
 # clone
 git clone $GIT_REPOSITORY $TEMP_FOLDER> /dev/null || echo 'repository exists! goto next step!'
@@ -28,9 +45,9 @@ git checkout *
 git pull
 
 # change and push
-touch $TEMP_FILE
-echo $(date +%Y-%m-%d_%H:%M:%S) >> $TEMP_FILE
-git add $TEMP_FILE
+touch $ROLLING_FILE
+echo $(date +%Y-%m-%d_%H:%M:%S) >> $ROLLING_FILE
+git add $ROLLING_FILE
 git commit -m 'auto commit'
 git push
 
