@@ -46,7 +46,7 @@ git pull
 
 # change and push
 touch $ROLLING_FILE
-echo $(date +%Y-%m-%d_%H:%M:%S) >> $ROLLING_FILE
+echo $(date +%Y-%m-%d_%H:%M:%S) > $ROLLING_FILE
 git add $ROLLING_FILE
 git commit -m 'auto commit'
 git push
