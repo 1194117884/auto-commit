@@ -34,7 +34,7 @@ then
 fi
 
 # this command only working in you git repository
-GIT_REPOSITORY=`git remote get-url --all origin`
+GIT_REPOSITORY=`git config --get remote.origin.url`
 
 # clone
 git clone $GIT_REPOSITORY $TEMP_FOLDER> /dev/null || echo 'repository exists! goto next step!'
