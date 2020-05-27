@@ -5,7 +5,11 @@
 #
 # 'You have to login your git account already, for security!'
 #
+WORK_SPACE=/opt/auto-commit
 ROLLING_FILE=temp.log
+
+# change work space
+cd $WORK_SPACE
 
 # this command only working in you git repository
 GIT_REPOSITORY=`git config --get remote.origin.url`
